@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ABC Hospital - Patient Form</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://img.freepik.com/free-photo/blur-hospital_1203-7973.jpg') no-repeat center center fixed;
+      background-size: cover;
+      backdrop-filter: blur(3px);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 30px;
+      color: white;
+      text-shadow: 4px 4px 4px black;
+    }
+
+    form {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      width: 380px;
+    }
+
+    form div {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #aaa;
+      border-radius: 5px;
+      outline: rgb(203, 18, 18);
+      resize: vertical;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+      border: double;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    table {
+      width: 90%;
+      max-width: 1000px;
+      margin: 30px auto;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 100px 400px 100px rgba(160, 17, 17, 0.2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #343a40;
+      color: white;
+    }
+
+    .delete {
+      background-color: #dc3545;
+      border: none;
+      padding: 6px 12px;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .delete:hover {
+      background-color: #b52a37;
+    }
+  </style>
+</head>
+<body>
+  <h1>🏥 ABC Hospital - Patient Registration</h1>
+  <form id="patientForm" onsubmit="addPatient(); return false;">
+    <div>
+      <label>Patient Name</label>
+      <input type="text" id="pname" required />
+    </div>
+    <div>
+      <label>Age</label>
+      <input type="number" id="age" required />
+    </div>
+    <div>
+      <label>Gender</label>
+      <input type="radio" name="gender" value="Male" required /> Male
+      <input type="radio" name="gender" value="Female" /> Female
+    </div>
+    <div>
+      <label>Date of Visit</label>
+      <input type="date" id="visitDate" required />
+    </div>
+    <div>
+      <label>Disease / Symptoms</label>
+      <input type="text" id="disease" required />
+    </div>
+    <div>
+      <label>Email</label>
+      <input type="email" id="email" required />
+    </div>
+    <div>
+      <label>Doctor Assigned</label>
+      <select id="doctor" required>
+        <option value="">Select</option>
+        <option value="Dr. Smith">Dr. Smith</option>
+        <option value="Dr. Priya">Dr. Priya</option>
+        <option value="Dr. Kumar">Dr. Kumar</option>
+      </select>
+    </div>
+    <button type="submit">📝 Register Patient</button>
+  </form>
+
+  <table id="patientTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Visit Date</th>
+        <th>Disease</th>
+        <th>Email</th>
+        <th>Doctor</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    function addPatient() {
+      const name = document.getElementById("pname").value;
+      const age = document.getElementById("age").value;
+      const visitDate = document.getElementById("visitDate").value;
+      const disease = document.getElementById("disease").value;
+      const email = document.getElementById("email").value;
+      const doctor = document.getElementById("doctor").value;
+      const gender = document.querySelector('input[name="gender"]:checked').value;
+
+      const tableBody = document.querySelector("#patientTable tbody");
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td>${name}</td>
+        <td>${age}</td>
+        <td>${gender}</td>
+        <td>${visitDate}</td>
+        <td>${disease}</td>
+        <td>${email}</td>
+        <td>${doctor}</td>
+        <td><button class="delete" onclick="this.parentElement.parentElement.remove()">Delete</button></td>
+      `;
+
+      tableBody.appendChild(row);
+      document.getElementById("patientForm").reset();
+    }
+  </script>
+</body>
+</html>
