@@ -1,0 +1,145 @@
+<head>
+    <title>Student Form</title>
+    <style>
+        body{
+            text-align: center;
+            margin: 20px;
+        }
+        form{
+            display: inline-block;
+            text-align: left;
+            padding: 20px;
+            border: 1px solid;
+            border-radius: 5px ;
+            background-color: black;
+            color: white;
+        }
+        form div{
+            margin-bottom: 10px;
+        }
+        label{
+            display: inline-block;
+            width: 70px;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        select{
+              padding: 5px;
+              width:300px;
+        }
+        button[type="submit"]{
+            
+            width:300px;
+            padding:8px;
+            background-color: greenyellow;
+            border: 1px;
+            font-weight:bold ;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: darkgreen;
+            color: white
+        }
+        table{
+            width:500px;
+            margin: 20px  auto ;
+            
+            
+        }
+            th, td {
+      border: 1px solid green;
+      padding: 10px;
+      text-align: center;
+    }
+    th{
+     background-color: black;
+     color: white;
+    }
+    .delete{
+        background-color: red;
+        border: none;
+        padding : 5px 10px;
+        cursor : pointer;
+
+    }
+    .delete:hover{
+        background-color: darkred;
+        color:white;
+
+    }
+
+    </style>
+</head>
+<body>
+    <h1>STUDENT FORM</h1>
+    <form id="studentform">
+        <div>
+            <label>Name</label>
+            <input type="text" id="name" required>
+        </div>
+        <div>
+            <label>Age</label>
+            <input type="number" id="age" required>
+        </div>
+        <div>
+            <label>
+                Gender
+            </label>
+            <input type="radio" name="gender" value="male" required>Male
+            <input type="radio" name="gender" value="female">Female
+            
+        </div>
+        <div>
+            <label>Course</label>
+            <select id="course" required>
+                <option value="">select</option>
+                <option value="C++">C++</option><option value="Python">Python</option><option value="Java">Java</option><option value="Ruby">RuBY</option>
+            </select>
+        </div>
+        <div>
+            <label>email</label>
+            <input type="email" id="email" required>
+        </div>
+        <center><button type="submit" onclick="add()">SAVE</button></center>
+    </form>
+    <table id="studenttable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Course</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</body>
+    <script>
+        function add() {
+            const name = document.getElementById("name").value;
+            const age = document.getElementById("age").value;
+            const course = document.getElementById("course").value;
+            const email = document.getElementById("email").value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+
+            const tableBody = document.querySelector("#studenttable tbody");
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${name}</td>
+                <td>${age}</td>
+                <td>${gender}</td>
+                <td>${course}</td>
+                <td>${email}</td>
+                <td><button class="delete" onclick="this.parentElement.parentElement.remove()">Delete</button></td>
+            `;
+
+            tableBody.appendChild(row);
+            document.getElementById("studentform").reset();
+        }
+    </script>
